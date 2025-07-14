@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Display</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f8;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .car-list {
+      margin-bottom: 30px;
+    }
+
+    .car-item {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      margin: 10px auto;
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>Car List</h1>
+
+  <div class="car-list">
+    <div class="car-item">Toyota - Corolla</div>
+    <div class="car-item">Honda - Civic</div>
+    <div class="car-item">Ford - Mustang</div>
+    <div class="car-item">BMW - 3 Series</div>
+  </div>
+
+  <form>
+    <label for="carSelect"><strong>Choose a car:</strong></label><br><br>
+    <select id="carSelect" name="car">
+      <option value="corolla">Toyota - Corolla</option>
+      <option value="civic">Honda - Civic</option>
+      <option value="mustang">Ford - Mustang</option>
+      <option value="bmw3">BMW - 3 Series</option>
+    </select>
+  </form>
+</body>
+</html>
