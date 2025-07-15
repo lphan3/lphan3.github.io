@@ -65,7 +65,7 @@ header {
   border-radius: 2rem;
   font-weight: bold;
   text-decoration: none;
-  box-shadow: 0 2px 8px 0 rgba(252, 182, 159, 0.10);
+  box-shadow: 0 4px 16px 0 rgba(44, 103, 242, 0.15), 0 2px 8px 0 rgba(252, 182, 159, 0.10);
   transition: background 0.2s, color 0.2s, transform 0.1s;
   cursor: pointer;
 }
@@ -79,8 +79,67 @@ header {
 .main-nav a.active {
   background: #fff;
   color: #2c67f2;
-  box-shadow: 0 4px 16px 0 rgba(44, 103, 242, 0.15);
+  box-shadow: 0 4px 16px 0 rgba(44, 103, 242, 0.15), 0 2px 8px 0 rgba(252, 182, 159, 0.10);
   border: 2px solid #2c67f2;
+}
+
+/* Dropdown styles for HIRE button */
+.main-nav li.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+  background: #fff;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(44, 103, 242, 0.15), 0 2px 8px rgba(252, 182, 159, 0.10);
+  border-radius: 1rem;
+  z-index: 2000;
+  padding: 0.5rem 0;
+}
+
+.dropdown-scroll {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-content a {
+  color: var(--text);
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  display: block;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-content a:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.main-nav li.dropdown:hover .dropdown-content,
+.main-nav li.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+/* Animated profile card for Leo */
+.profile-card-leo {
+  transition: transform 0.2s cubic-bezier(.4,2,.6,1), box-shadow 0.2s, background 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.profile-card-leo:hover, .profile-card-leo:focus {
+  transform: scale(1.06) rotate(-1deg);
+  box-shadow: 0 8px 24px rgba(44, 103, 242, 0.18), 0 4px 16px rgba(252, 182, 159, 0.13);
+  border-color: var(--primary);
+  background: #f3eaff;
+  outline: none;
 }
 
 main {
