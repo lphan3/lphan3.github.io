@@ -1,0 +1,88 @@
+:root {
+  --primary: #d2b0e6;
+  --bg: #fdf3f7;
+  --text: #1a1a1a;
+  --hover: #ffb6c1;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+header {
+  background: linear-gradient(90deg, #ffecd2 0%, #62cff4 50%, #2c67f2 100%);
+  display: flex;
+  align-items: center;
+  padding: 0;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 90px;
+  box-shadow: 0 4px 16px 0 rgba(255, 182, 193, 0.25), 0 1.5px 6px 0 rgba(252, 182, 159, 0.18);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: 2rem;
+  flex: 0 0 auto;
+}
+
+.logo-container img {
+  height: 56px;
+}
+
+.main-nav {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-nav a {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  font-size: 1.25rem;
+  color: white;
+  background: rgba(255, 255, 255, 0.10);
+  border: none;
+  border-radius: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 8px 0 rgba(252, 182, 159, 0.10);
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  cursor: pointer;
+}
+
+.main-nav a:hover {
+  color: var(--hover);
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.main-nav a.active {
+  background: #fff;
+  color: #2c67f2;
+  box-shadow: 0 4px 16px 0 rgba(44, 103, 242, 0.15);
+  border: 2px solid #2c67f2;
+}
+
+main {
+  padding: 2rem;
+} 
