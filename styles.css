@@ -142,6 +142,19 @@ header {
   outline: none;
 }
 
+.profile-card-sterling {
+  transition: transform 0.2s cubic-bezier(.4,2,.6,1), box-shadow 0.2s, background 0.2s, border-color 0.2s;
+  cursor: pointer;
+  background-color:#c9d7c0 ;
+}
+.profile-card-sterling:hover, .profile-card-sterling:focus {
+  transform: scale(1.36) rotate(-1deg);
+  box-shadow: 0 8px 24px rgba(44, 103, 242, 0.18), 0 4px 16px rgba(252, 182, 159, 0.13);
+  border-color: #dbead2;
+  background: #f3eaff;
+  outline: none;
+}
+
 main {
   padding: 2rem;
 } 
