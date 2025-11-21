@@ -1,57 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>i.c.stars Dashboard</title>
-  <link rel="icon" type="image/png" href="/mnt/data/4d65e30e-62eb-4fb4-8c92-19fa96a8f369.png" />
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        .status {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+            min-height: 40px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 120px);
+            grid-gap: 10px;
+            margin: 0 auto 30px;
+            width: fit-content;
+        }
+
+        .cell {
+            width: 120px;
+            height: 120px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 10px;
+            font-size: 3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #667eea;
+        }
+
+        .cell:hover:not(:disabled) {
+            background: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        .cell:disabled {
+            cursor: not-allowed;
+        }
+
+        .cell.x {
+            color: #667eea;
+        }
+
+        .cell.o {
+            color: #764ba2;
+        }
+
+        .reset-btn {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .reset-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .winning-cell {
+            background: #ffd700 !important;
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo-container">
-      <img src="image/icstars-logo-norm-png-1.webp" alt="i.c.stars logo">
+    <div class="container">
+        <h1>Tic-Tac-Toe</h1>
+        <div class="status" id="status">Player X's Turn</div>
+        <div class="board" id="board">
+            <button class="cell" data-index="0"></button>
+            <button class="cell" data-index="1"></button>
+            <button class="cell" data-index="2"></button>
+            <button class="cell" data-index="3"></button>
+            <button class="cell" data-index="4"></button>
+            <button class="cell" data-index="5"></button>
+            <button class="cell" data-index="6"></button>
+            <button class="cell" data-index="7"></button>
+            <button class="cell" data-index="8"></button>
+        </div>
+        <button class="reset-btn" onclick="resetGame()">New Game</button>
     </div>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="index.html" class="active">PROGRAM</a></li>
-        <li class="dropdown">
-          <a href="hire.html">HIRE</a>
-          <div class="dropdown-content">
-            <div class="dropdown-scroll">
-              <a href="cycle19.html">Cycle 19</a>
-              <a href="#">Cycle 18</a>
-              <a href="#">Cycle 17</a>
-              <a href="#">Cycle 16</a>
-              <a href="#">Cycle 15</a>
-              <a href="#">Cycle 14</a>
-              <a href="#">Cycle 13</a>
-              <a href="#">Cycle 12</a>
-              <a href="#">Cycle 11</a>
-              <a href="#">Cycle 10</a>
-              <a href="#">Cycle 9</a>
-              <a href="#">Cycle 8</a>
-              <a href="#">Cycle 7</a>
-              <a href="#">Cycle 6</a>
-              <a href="#">Cycle 5</a>
-              <a href="#">Cycle 4</a>
-              <a href="#">Cycle 3</a>
-              <a href="#">Cycle 2</a>
-              <a href="#">Cycle 1</a>
-            </div>
-          </div>
-        </li>
-        <li><a href="#invest">INVEST</a></li>
-        <li><a href="#get-engaged">GET ENGAGED</a></li>
-        <li><a href="#about">ABOUT US</a></li>
-        <li><a href="#news">NEWS</a></li>
-        <li><a href="#subscribe">SUBSCRIBE</a></li>
-        <li><a href="#donate">DONATE</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <!-- Profile cards will go here -->
-  </main>
+
+    <script>
+        let currentPlayer = 'X';
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+
+        const winningConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        const cells = document.querySelectorAll('.cell');
+        const statusDisplay = document.getElementById('status');
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
+
+        function handleCellClick(e) {
+            const clickedCell = e.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
+
+            if (gameBoard[clickedCellIndex] !== '' || !gameActive) {
+                return;
+            }
+
+            updateCell(clickedCell, clickedCellIndex);
+            checkResult();
+        }
+
+        function updateCell(cell, index) {
+            gameBoard[index] = currentPlayer;
+            cell.textContent = currentPlayer;
+            cell.classList.add(currentPlayer.toLowerCase());
+            cell.disabled = true;
+        }
+
+        function checkResult() {
+            let roundWon = false;
+            let winningCells = [];
+
+            for (let i = 0; i < winningConditions.length; i++) {
+                const [a, b, c] = winningConditions[i];
+                if (gameBoard[a] === '' || gameBoard[b] === '' || gameBoard[c] === '') {
+                    continue;
+                }
+                if (gameBoard[a] === gameBoard[b] && gameBoard[b] === gameBoard[c]) {
+                    roundWon = true;
+                    winningCells = [a, b, c];
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusDisplay.textContent = `Player ${currentPlayer} Wins! 🎉`;
+                gameActive = false;
+                highlightWinningCells(winningCells);
+                return;
+            }
+
+            if (!gameBoard.includes('')) {
+                statusDisplay.textContent = "It's a Draw! 🤝";
+                gameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusDisplay.textContent = `Player ${currentPlayer}'s Turn`;
+        }
+
+        function highlightWinningCells(cells) {
+            cells.forEach(index => {
+                document.querySelector(`[data-index="${index}"]`).classList.add('winning-cell');
+            });
+        }
+
+        function resetGame() {
+            gameActive = true;
+            currentPlayer = 'X';
+            gameBoard = ['', '', '', '', '', '', '', '', ''];
+            statusDisplay.textContent = "Player X's Turn";
+            cells.forEach(cell => {
+                cell.textContent = '';
+                cell.disabled = false;
+                cell.classList.remove('x', 'o', 'winning-cell');
+            });
+        }
+    </script>
 </body>
 </html>
